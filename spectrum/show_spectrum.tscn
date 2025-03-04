@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://dfyeamw4sg2af"]
 
-[ext_resource type="Script" path="res://show_spectrum.gd" id="1"]
+[ext_resource type="Script" path="res://show_spectrum_new.gd" id="1_3ax1y"]
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_wvfan"]
 resource_local_to_scene = true
 
 [node name="ShowSpectrum" type="Node2D"]
 position = Vector2(136, 80)
-script = ExtResource("1")
+script = ExtResource("1_3ax1y")
 
 [node name="Player" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamMicrophone_wvfan")
