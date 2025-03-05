@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxuwpp6ryg633"]
+
+[ext_resource type="Script" path="res://peg.gd" id="1_u1884"]
+[ext_resource type="Texture2D" uid="uid://2f5on4pqj41k" path="res://peg_default.png" id="2_ycydn"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kjt4o"]
+radius = 16.0
+height = 96.0
+
+[node name="Peg" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource("1_u1884")
+
+[node name="Peg_Sprite" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ycydn")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_kjt4o")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="body_shape_exited" from="." to="." method="_on_body_shape_exited"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
