@@ -66,6 +66,8 @@ func log2(value):
 func comp_freqs(f1: Vector2, f2: Vector2):
 	return f1[1] > f2[1]
 
+var latest_note = null;
+
 func _process(_delta):
 	var magnitudes = []
 
@@ -84,14 +86,23 @@ func _process(_delta):
 	
 	if (magnitudes[0][1] > 0.1):
 		closest_note = find_closest_note(magnitudes);
+		latest_note = closest_note
+		
+	if closest_note != "Nothing plucked":
+		var spriteName = closest_note + "_String";
+		get_node(spriteName).play()
+		if latest_note != closest_note:
+			var latestName = latest_note + "_String";
+			get_node(latestName).stop()
+			latest_note = closest_note
+	else:
+		for string in STRING_NAMES:
+			var spriteName = string + "_String";
+			get_node(spriteName).stop()
 	
 	pr(["detected closest note", closest_note])
 	
-		#print("Strings:", strings)
 	frame_count = frame_count + 1;
-	
-	queue_redraw()
-
 
 func _ready():
 	spectrum = AudioServer.get_bus_effect_instance(0, 0)

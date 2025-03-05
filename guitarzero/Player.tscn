@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ctkhpxiatx6wx"]
+[gd_scene load_steps=7 format=3 uid="uid://ctkhpxiatx6wx"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_05x6y"]
 [ext_resource type="Texture2D" uid="uid://cxdo1pt3yw14l" path="res://string.png" id="1_wnhr8"]
 [ext_resource type="Texture2D" uid="uid://di7a1hnuq7ofb" path="res://string_plucked.png" id="2_o24js"]
+[ext_resource type="FontFile" uid="uid://bt28q3xjlwnpm" path="res://Xolonium-Regular.ttf" id="4_fnixr"]
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_mji10"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2rtfw"]
 animations = [{
@@ -18,17 +21,96 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_mji10"]
-
 [node name="Player" type="Area2D"]
+position = Vector2(610, 232)
 script = ExtResource("1_05x6y")
-metadata/_edit_group_ = true
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_2rtfw")
-animation = &"play"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamMicrophone_mji10")
 volume_db = 1.248
 autoplay = true
+
+[node name="E_String" type="AnimatedSprite2D" parent="."]
+position = Vector2(168, 34)
+sprite_frames = SubResource("SpriteFrames_2rtfw")
+animation = &"play"
+
+[node name="A_String" type="AnimatedSprite2D" parent="."]
+position = Vector2(168, 162)
+sprite_frames = SubResource("SpriteFrames_2rtfw")
+animation = &"play"
+metadata/_edit_group_ = true
+
+[node name="D_String" type="AnimatedSprite2D" parent="."]
+position = Vector2(168, 290)
+sprite_frames = SubResource("SpriteFrames_2rtfw")
+animation = &"play"
+
+[node name="G_String" type="AnimatedSprite2D" parent="."]
+position = Vector2(168, 423)
+sprite_frames = SubResource("SpriteFrames_2rtfw")
+animation = &"play"
+
+[node name="B_String" type="AnimatedSprite2D" parent="."]
+position = Vector2(168, 546)
+sprite_frames = SubResource("SpriteFrames_2rtfw")
+animation = &"play"
+
+[node name="HIGH_E_String" type="AnimatedSprite2D" parent="."]
+position = Vector2(168, 674)
+sprite_frames = SubResource("SpriteFrames_2rtfw")
+animation = &"play"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -498.0
+offset_top = 120.0
+offset_right = -447.0
+offset_bottom = 198.0
+theme_override_fonts/font = ExtResource("4_fnixr")
+theme_override_font_sizes/font_size = 64
+text = "A"
+
+[node name="Label" type="Label" parent="."]
+offset_left = -498.0
+offset_top = -8.0
+offset_right = -451.0
+offset_bottom = 70.0
+theme_override_fonts/font = ExtResource("4_fnixr")
+theme_override_font_sizes/font_size = 64
+text = "E"
+
+[node name="Label3" type="Label" parent="."]
+offset_left = -498.0
+offset_top = 248.0
+offset_right = -451.0
+offset_bottom = 326.0
+theme_override_fonts/font = ExtResource("4_fnixr")
+theme_override_font_sizes/font_size = 64
+text = "G"
+
+[node name="Label4" type="Label" parent="."]
+offset_left = -498.0
+offset_top = 384.0
+offset_right = -451.0
+offset_bottom = 462.0
+theme_override_fonts/font = ExtResource("4_fnixr")
+theme_override_font_sizes/font_size = 64
+text = "D"
+
+[node name="Label5" type="Label" parent="."]
+offset_left = -498.0
+offset_top = 504.0
+offset_right = -451.0
+offset_bottom = 582.0
+theme_override_fonts/font = ExtResource("4_fnixr")
+theme_override_font_sizes/font_size = 64
+text = "B"
+
+[node name="Label6" type="Label" parent="."]
+offset_left = -498.0
+offset_top = 632.0
+offset_right = -451.0
+offset_bottom = 710.0
+theme_override_fonts/font = ExtResource("4_fnixr")
+theme_override_font_sizes/font_size = 64
+text = "E"
