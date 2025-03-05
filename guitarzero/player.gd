@@ -1,5 +1,5 @@
-extends Area2D
-
+extends Node2D
+signal string_pluck
 
 const FREQ_MAX = 350
 
@@ -19,6 +19,16 @@ const HIGH_E = 333
 
 const FREQ_CENTERS = [E, A, A_DOUBLE, D,D_DOUBLE, G, B, HIGH_E]
 const STRING_NAMES = ["E", "A", "A", "D", "D", "G", "B", "HIGH_E"]
+const SINGLE_STRING_NAMES = ["E", "A", "D", "G", "B", "HIGH_E"]
+
+const Colors = [
+	Color(0, 1, 0), 
+	Color(1, 0, 0), 
+	Color(1, 1, 0, 1), 
+	Color(0,0,1), 
+	Color(0.9635, 0.5676, 0.0251, 1),
+	Color(0.5573, 0.0149, 0.9531, 1)
+]
 
 func avg(arr: Array):
 	var sum = 0;
@@ -60,9 +70,6 @@ func pr(something: Array):
 func round_place(num,places):
 	return (round(num*pow(10,places))/pow(10,places))
 
-func log2(value):
-	return log(value) / log(2)
-
 func comp_freqs(f1: Vector2, f2: Vector2):
 	return f1[1] > f2[1]
 
@@ -84,13 +91,14 @@ func _process(_delta):
 	
 	var closest_note = "Nothing plucked";
 	
-	if (magnitudes[0][1] > 0.1):
+	if (magnitudes[0][1] > 0.2):
 		closest_note = find_closest_note(magnitudes);
 		latest_note = closest_note
 		
 	if closest_note != "Nothing plucked":
 		var spriteName = closest_note + "_String";
 		get_node(spriteName).play()
+		string_pluck.emit(closest_note)
 		if latest_note != closest_note:
 			var latestName = latest_note + "_String";
 			get_node(latestName).stop()
@@ -100,9 +108,20 @@ func _process(_delta):
 			var spriteName = string + "_String";
 			get_node(spriteName).stop()
 	
-	pr(["detected closest note", closest_note])
+	#pr(["detected closest note", closest_note])
 	
 	frame_count = frame_count + 1;
 
 func _ready():
 	spectrum = AudioServer.get_bus_effect_instance(0, 0)
+	for string_idx in range(0, SINGLE_STRING_NAMES.size()):
+		var spriteName = SINGLE_STRING_NAMES[string_idx] + "_String";
+		get_node(spriteName).modulate = Colors[string_idx]
+
+func _on_strike_area_body_entered(body: Node2D) -> void:
+	body.isHittable = true
+	print("Note of string ", body.string, " is now hittable ", body.isHittable)
+
+func _on_strike_area_body_exited(body: Node2D) -> void:
+	body.isHittable = false
+	print("Note of string ", body.string, " is now unhittable ", body.isHittable)	
