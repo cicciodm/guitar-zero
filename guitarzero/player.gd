@@ -9,11 +9,11 @@ var frame_count = 0;
 const SD = 1
 
 const E = 100
-const A = 130
+const A = 119
 const A_DOUBLE = 222
-const D = 153
+const D = 165
 const D_DOUBLE = 315
-const G = 197
+const G = 209
 const B = 245
 const HIGH_E = 333
 
@@ -41,8 +41,8 @@ func find_closest_note(data):
 	var lowest_mean = 1000000000000000;
 	var lowest_idx = 0;
 	var idx = 0
-	var freqs = data.slice(0, 10);
-	#pr(["analysing", freqs])
+	var freqs = data.slice(0, 20);
+	#print(["analysing", freqs.slice(0,10)])
 	
 	for note in FREQ_CENTERS:
 		var deltas = []
@@ -50,16 +50,19 @@ func find_closest_note(data):
 			var diff = abs(freq[0] - note)
 			deltas.append(diff)
 		var mean = avg(deltas)
+		#print(["Comparing to ", note, " got ", deltas, "with avg", mean])
 		if mean < lowest_mean:
 			lowest_mean = mean
 			lowest_idx = idx
 		#pr(["Comparing to", note, "found", deltas, "with avg", mean])
 		idx = idx + 1
 	
-		# if this is an E, gotta check for low freqs
-	if (lowest_idx == 5):
+		# if this is a high E, gotta check for low freqs
+	if (lowest_idx == STRING_NAMES.size() - 1):
 		var low = freqs.filter(func(v): return abs(v[0] - 80) <= 5)
 		lowest_idx = 0 if low.any(func(f): return f[1] > 0.5) else lowest_idx
+	
+	#print(["Found lowest idx", lowest_idx, " therefore returning", STRING_NAMES[lowest_idx]])
 	
 	return STRING_NAMES[lowest_idx]
 
@@ -74,8 +77,15 @@ func comp_freqs(f1: Vector2, f2: Vector2):
 	return f1[1] > f2[1]
 
 var latest_note = null;
+var cumulative_delta = 0;
 
-func _process(_delta):
+func _process(delta):
+	cumulative_delta = cumulative_delta + delta;
+	if (cumulative_delta < 0.3):
+		return;
+	
+	cumulative_delta = 0
+	
 	var magnitudes = []
 
 	# Gather data
@@ -91,17 +101,17 @@ func _process(_delta):
 	
 	var closest_note = "Nothing plucked";
 	
-	if (magnitudes[0][1] > 0.2):
+	if (magnitudes[0][1] > 0.1):
 		closest_note = find_closest_note(magnitudes);
-		latest_note = closest_note
 		
 	if closest_note != "Nothing plucked":
 		var spriteName = closest_note + "_String";
 		get_node(spriteName).play()
 		string_pluck.emit(closest_note)
 		if latest_note != closest_note:
-			var latestName = latest_note + "_String";
-			get_node(latestName).stop()
+			if latest_note != null:
+				var latestName = latest_note + "_String";
+				get_node(latestName).stop()
 			latest_note = closest_note
 	else:
 		for string in STRING_NAMES:
@@ -120,8 +130,6 @@ func _ready():
 
 func _on_strike_area_body_entered(body: Node2D) -> void:
 	body.isHittable = true
-	print("Note of string ", body.string, " is now hittable ", body.isHittable)
 
 func _on_strike_area_body_exited(body: Node2D) -> void:
 	body.isHittable = false
-	print("Note of string ", body.string, " is now unhittable ", body.isHittable)	

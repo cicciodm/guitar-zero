@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://6gl2a23avbeo"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_6svub"]
+[ext_resource type="Script" uid="uid://ctd3ymkjbly5j" path="res://main.gd" id="1_6svub"]
 [ext_resource type="PackedScene" uid="uid://bxuwpp6ryg633" path="res://Peg.tscn" id="2_8tkvw"]
 [ext_resource type="PackedScene" uid="uid://ctkhpxiatx6wx" path="res://Player.tscn" id="3_s131w"]
 [ext_resource type="FontFile" uid="uid://bt28q3xjlwnpm" path="res://Xolonium-Regular.ttf" id="4_3v46p"]
@@ -20,11 +20,11 @@ position = Vector2(771, -64)
 [node name="A_Spawn" type="Node2D" parent="."]
 position = Vector2(899, -64)
 
-[node name="G_Spawn" type="Node2D" parent="."]
-position = Vector2(1027, -64)
-
 [node name="D_Spawn" type="Node2D" parent="."]
-position = Vector2(1155, -64)
+position = Vector2(1024, -64)
+
+[node name="G_Spawn" type="Node2D" parent="."]
+position = Vector2(1152, -64)
 
 [node name="B_Spawn" type="Node2D" parent="."]
 position = Vector2(1283, -64)
