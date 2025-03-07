@@ -29,17 +29,13 @@ var level_data;
 func _ready() -> void:
 	$ScoreValue.text = str(score)
 	var secondsPerNote = (float(60) / BPM) / (NOTE_UNIT_RATIO / time_signature_bottom)
-	print("Setting timer to ", secondsPerNote)
 	$Note_Spawn_Timer.start(secondsPerNote)
 	var file = FileAccess.open("res://levels/level1.json", FileAccess.READ)
 	level_data = JSON.parse_string(file.get_as_text()) as Array;
-	print(level_data)
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
-
 
 func _on_player_string_pluck(stringName: String, fret: String) -> void:
 	var foundNote = null
@@ -72,6 +68,8 @@ func _on_note_spawn_timer_timeout() -> void:
 	
 	if click and note_counter % note_unit_per_beat == 0:
 		$Click.play(0.02)
+		if (!$LevelTrackPlayer.playing):
+			$LevelTrackPlayer.play()
 	
 	if note_counter % note_unit_per_bar == 0:
 		$BarValue.text = str((note_counter / note_unit_per_bar) + 1) 

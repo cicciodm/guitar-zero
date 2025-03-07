@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://6gl2a23avbeo"]
+[gd_scene load_steps=7 format=3 uid="uid://6gl2a23avbeo"]
 
 [ext_resource type="Script" uid="uid://ctd3ymkjbly5j" path="res://main.gd" id="1_6svub"]
 [ext_resource type="PackedScene" uid="uid://bxuwpp6ryg633" path="res://Peg.tscn" id="2_8tkvw"]
 [ext_resource type="PackedScene" uid="uid://ctkhpxiatx6wx" path="res://Player.tscn" id="3_s131w"]
 [ext_resource type="FontFile" uid="uid://bt28q3xjlwnpm" path="res://Xolonium-Regular.ttf" id="4_3v46p"]
 [ext_resource type="AudioStream" uid="uid://c3hc8yqmu4wwc" path="res://click.mp3" id="5_lquwl"]
+[ext_resource type="AudioStream" uid="uid://dxww6oyewgft" path="res://GuitarZero.wav" id="6_7mycd"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_6svub")
@@ -110,6 +111,9 @@ text = "0"
 
 [node name="Click" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_lquwl")
+
+[node name="LevelTrackPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_7mycd")
 
 [connection signal="string_pluck" from="Player" to="." method="_on_player_string_pluck"]
 [connection signal="timeout" from="Note_Spawn_Timer" to="." method="_on_note_spawn_timer_timeout"]

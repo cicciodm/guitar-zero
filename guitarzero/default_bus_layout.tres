@@ -1,6 +1,9 @@
-[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://krnaoeaux8ov"]
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://krnaoeaux8ov"]
 
 [sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_ks2eh"]
+resource_name = "SpectrumAnalyzer"
+
+[sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_j3pel"]
 resource_name = "SpectrumAnalyzer"
 
 [resource]
@@ -12,3 +15,5 @@ bus/1/mute = false
 bus/1/bypass_fx = false
 bus/1/volume_db = 0.0
 bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectSpectrumAnalyzer_j3pel")
+bus/1/effect/0/enabled = true

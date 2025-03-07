@@ -43,7 +43,7 @@ func find_closest_note(data) -> Array[String]:
 	var lowest_idx = 0;
 	var idx = 0
 	var freqs = data.slice(0, 20);
-	#print(["analysing", freqs.slice(0,10)])
+	print(["analysing", freqs.slice(0,10)])
 	
 	for note in FREQ_CENTERS:
 		var deltas = []
@@ -130,7 +130,7 @@ func _process(delta):
 	frame_count = frame_count + 1;
 
 func _ready():
-	spectrum = AudioServer.get_bus_effect_instance(0, 0)
+	spectrum = AudioServer.get_bus_effect_instance(1, 0)
 	for string_idx in range(0, SINGLE_STRING_NAMES.size()):
 		var spriteName = SINGLE_STRING_NAMES[string_idx] + "_String";
 		get_node(spriteName).modulate = Colors[string_idx]
