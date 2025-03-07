@@ -22,7 +22,7 @@ driver/enable_input=true
 [display]
 
 window/size/viewport_width=2320
-window/size/viewport_height=1480
+window/size/viewport_height=1280
 window/stretch/mode="canvas_items"
 
 [dotnet]

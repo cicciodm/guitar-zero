@@ -31,8 +31,9 @@ script = ExtResource("1_05x6y")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamMicrophone_mji10")
-volume_db = 1.248
+volume_db = 3.423
 autoplay = true
+bus = &"Mic Bus"
 
 [node name="E_String" type="AnimatedSprite2D" parent="."]
 position = Vector2(-616, 314)

@@ -101,7 +101,7 @@ func _process(delta):
 		magnitudes.append(Vector2(freq, magnitude))
 	
 	magnitudes.sort_custom(comp_freqs)
-	print("Mags", magnitudes.slice(0, 10))
+	#print("Mags", magnitudes.slice(0, 10))
 	
 	var closest_note = "Nothing plucked";
 	var fret = ""

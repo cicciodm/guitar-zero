@@ -1,18 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://6gl2a23avbeo"]
+[gd_scene load_steps=6 format=3 uid="uid://6gl2a23avbeo"]
 
 [ext_resource type="Script" uid="uid://ctd3ymkjbly5j" path="res://main.gd" id="1_6svub"]
 [ext_resource type="PackedScene" uid="uid://bxuwpp6ryg633" path="res://Peg.tscn" id="2_8tkvw"]
 [ext_resource type="PackedScene" uid="uid://ctkhpxiatx6wx" path="res://Player.tscn" id="3_s131w"]
 [ext_resource type="FontFile" uid="uid://bt28q3xjlwnpm" path="res://Xolonium-Regular.ttf" id="4_3v46p"]
+[ext_resource type="AudioStream" uid="uid://c3hc8yqmu4wwc" path="res://click.mp3" id="5_lquwl"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_6svub")
 peg_scene = ExtResource("2_8tkvw")
 speed = 350
-spawn = false
+click = true
 
 [node name="Player" parent="." instance=ExtResource("3_s131w")]
-position = Vector2(1384, 653)
+position = Vector2(1384, 385)
 metadata/_edit_group_ = true
 
 [node name="E_Spawn" type="Node2D" parent="."]
@@ -34,44 +35,81 @@ position = Vector2(1280, -64)
 position = Vector2(1408, -64)
 
 [node name="Note_Spawn_Timer" type="Timer" parent="."]
-wait_time = 3.0
-autostart = true
 
 [node name="ScoreLabel" type="Label" parent="."]
-offset_left = 1584.0
-offset_top = 968.0
-offset_right = 1848.0
-offset_bottom = 1048.0
+offset_left = 1608.0
+offset_top = 656.0
+offset_right = 1872.0
+offset_bottom = 736.0
 theme_override_fonts/font = ExtResource("4_3v46p")
 theme_override_font_sizes/font_size = 64
 text = "SCORE:"
 
 [node name="ScoreValue" type="Label" parent="."]
-offset_left = 1864.0
-offset_top = 968.0
-offset_right = 2128.0
-offset_bottom = 1048.0
+offset_left = 1888.0
+offset_top = 656.0
+offset_right = 2152.0
+offset_bottom = 736.0
 theme_override_fonts/font = ExtResource("4_3v46p")
 theme_override_font_sizes/font_size = 64
 text = "0"
 
 [node name="FretLabel" type="Label" parent="."]
-offset_left = 1576.0
-offset_top = 1072.0
-offset_right = 1840.0
-offset_bottom = 1152.0
+offset_left = 1600.0
+offset_top = 760.0
+offset_right = 1864.0
+offset_bottom = 840.0
 theme_override_fonts/font = ExtResource("4_3v46p")
 theme_override_font_sizes/font_size = 64
 text = "FRET:"
 
 [node name="FretValue" type="Label" parent="."]
-offset_left = 1856.0
-offset_top = 1072.0
-offset_right = 2120.0
-offset_bottom = 1152.0
+offset_left = 1880.0
+offset_top = 760.0
+offset_right = 2144.0
+offset_bottom = 840.0
 theme_override_fonts/font = ExtResource("4_3v46p")
 theme_override_font_sizes/font_size = 64
 text = "None"
+
+[node name="BarLabel" type="Label" parent="."]
+offset_left = 1600.0
+offset_top = 856.0
+offset_right = 1864.0
+offset_bottom = 936.0
+theme_override_fonts/font = ExtResource("4_3v46p")
+theme_override_font_sizes/font_size = 64
+text = "Bar:"
+
+[node name="BarValue" type="Label" parent="."]
+offset_left = 1880.0
+offset_top = 856.0
+offset_right = 2144.0
+offset_bottom = 936.0
+theme_override_fonts/font = ExtResource("4_3v46p")
+theme_override_font_sizes/font_size = 64
+text = "1"
+
+[node name="NoteLabel" type="Label" parent="."]
+offset_left = 1600.0
+offset_top = 944.0
+offset_right = 1864.0
+offset_bottom = 1024.0
+theme_override_fonts/font = ExtResource("4_3v46p")
+theme_override_font_sizes/font_size = 64
+text = "Note:"
+
+[node name="NoteValue" type="Label" parent="."]
+offset_left = 1880.0
+offset_top = 944.0
+offset_right = 2144.0
+offset_bottom = 1024.0
+theme_override_fonts/font = ExtResource("4_3v46p")
+theme_override_font_sizes/font_size = 64
+text = "0"
+
+[node name="Click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_lquwl")
 
 [connection signal="string_pluck" from="Player" to="." method="_on_player_string_pluck"]
 [connection signal="timeout" from="Note_Spawn_Timer" to="." method="_on_note_spawn_timer_timeout"]

@@ -9,7 +9,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if (isHit):
 		isHittable = false
 		self.linear_velocity = Vector2(0,0)
@@ -19,5 +19,5 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free() # Replace with function body.
 
 
-func _on_hit_animation_animation_finished(anim_name: StringName) -> void:
+func _on_hit_animation_animation_finished(_anim_name: StringName) -> void:
 	queue_free() # Replace with function body.
