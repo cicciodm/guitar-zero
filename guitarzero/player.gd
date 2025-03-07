@@ -1,7 +1,7 @@
 extends Node2D
 signal string_pluck
 
-const FREQ_MAX = 350
+const FREQ_MAX = 370
 
 var spectrum
 var frame_count = 0;
@@ -14,7 +14,7 @@ const A_DOUBLE = 222
 const D = 165
 const D_DOUBLE = 315
 const G = 209
-const B = 245
+const B = 250
 const HIGH_E = 333
 
 const FREQ_CENTERS = [E, A, A_DOUBLE, D,D_DOUBLE, G, B, HIGH_E]
@@ -37,8 +37,9 @@ func avg(arr: Array):
 	return float(sum) / len(arr)
 
 # magnitudes is a sorted array of (Freq, magnitude)
-func find_closest_note(data):
+func find_closest_note(data) -> Array[String]:
 	var lowest_mean = 1000000000000000;
+	var fret = 0
 	var lowest_idx = 0;
 	var idx = 0
 	var freqs = data.slice(0, 20);
@@ -50,21 +51,23 @@ func find_closest_note(data):
 			var diff = abs(freq[0] - note)
 			deltas.append(diff)
 		var mean = avg(deltas)
-		#print(["Comparing to ", note, " got ", deltas, "with avg", mean])
 		if mean < lowest_mean:
 			lowest_mean = mean
+			#print(["Comparing to ", note, " got ", deltas, "with avg", mean])
+			if mean > 0:
+				fret = round(mean / 23)
 			lowest_idx = idx
 		#pr(["Comparing to", note, "found", deltas, "with avg", mean])
 		idx = idx + 1
 	
 		# if this is a high E, gotta check for low freqs
 	if (lowest_idx == STRING_NAMES.size() - 1):
-		var low = freqs.filter(func(v): return abs(v[0] - 80) <= 5)
+		var low = data.filter(func(v): return abs(v[0] - 80) <= 5)
 		lowest_idx = 0 if low.any(func(f): return f[1] > 0.5) else lowest_idx
 	
 	#print(["Found lowest idx", lowest_idx, " therefore returning", STRING_NAMES[lowest_idx]])
 	
-	return STRING_NAMES[lowest_idx]
+	return [STRING_NAMES[lowest_idx], str(fret)]
 
 func pr(something: Array):
 	if (frame_count % 120 == 0):
@@ -96,18 +99,22 @@ func _process(delta):
 		var magnitude_raw = spectrum.get_magnitude_for_frequency_range(hz_min, hz_max).length()
 		var magnitude = round_place(magnitude_raw * 10, 3)
 		magnitudes.append(Vector2(freq, magnitude))
-
+	
 	magnitudes.sort_custom(comp_freqs)
+	print("Mags", magnitudes.slice(0, 10))
 	
 	var closest_note = "Nothing plucked";
+	var fret = ""
 	
 	if (magnitudes[0][1] > 0.1):
-		closest_note = find_closest_note(magnitudes);
+		var result = find_closest_note(magnitudes);
+		closest_note = result[0]
+		fret = result[1]
 		
 	if closest_note != "Nothing plucked":
 		var spriteName = closest_note + "_String";
 		get_node(spriteName).play()
-		string_pluck.emit(closest_note)
+		string_pluck.emit(closest_note, fret)
 		if latest_note != closest_note:
 			if latest_note != null:
 				var latestName = latest_note + "_String";

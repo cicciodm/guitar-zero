@@ -9,6 +9,7 @@
 script = ExtResource("1_6svub")
 peg_scene = ExtResource("2_8tkvw")
 speed = 350
+spawn = false
 
 [node name="Player" parent="." instance=ExtResource("3_s131w")]
 position = Vector2(1388, 653)
@@ -53,6 +54,24 @@ offset_bottom = 1048.0
 theme_override_fonts/font = ExtResource("4_3v46p")
 theme_override_font_sizes/font_size = 64
 text = "0"
+
+[node name="FretLabel" type="Label" parent="."]
+offset_left = 1576.0
+offset_top = 1072.0
+offset_right = 1840.0
+offset_bottom = 1152.0
+theme_override_fonts/font = ExtResource("4_3v46p")
+theme_override_font_sizes/font_size = 64
+text = "FRET:"
+
+[node name="FretValue" type="Label" parent="."]
+offset_left = 1856.0
+offset_top = 1072.0
+offset_right = 2120.0
+offset_bottom = 1152.0
+theme_override_fonts/font = ExtResource("4_3v46p")
+theme_override_font_sizes/font_size = 64
+text = "None"
 
 [connection signal="string_pluck" from="Player" to="." method="_on_player_string_pluck"]
 [connection signal="timeout" from="Note_Spawn_Timer" to="." method="_on_note_spawn_timer_timeout"]

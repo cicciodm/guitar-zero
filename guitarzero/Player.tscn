@@ -23,7 +23,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7mdvj"]
-size = Vector2(768, 192)
+size = Vector2(768, 97)
 
 [node name="Player" type="Node2D"]
 position = Vector2(744, 688)
@@ -134,12 +134,12 @@ text = "E"
 [node name="StrikeArea" type="Area2D" parent="."]
 
 [node name="AreaSprite" type="Sprite2D" parent="StrikeArea"]
-position = Vector2(-296, 392)
-scale = Vector2(0.597561, 0.567989)
+position = Vector2(-296, 440.625)
+scale = Vector2(0.597561, 0.292493)
 texture = ExtResource("5_au5wq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StrikeArea"]
-position = Vector2(-296, 392)
+position = Vector2(-296, 439.5)
 shape = SubResource("RectangleShape2D_7mdvj")
 
 [connection signal="body_entered" from="StrikeArea" to="." method="_on_strike_area_body_entered"]

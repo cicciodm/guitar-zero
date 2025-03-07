@@ -28,9 +28,10 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_player_string_pluck(stringName: String) -> void:
+func _on_player_string_pluck(stringName: String, fret: String) -> void:
 	var foundNote = null
 	var notesOfString = notes.filter(func(note): return note != null and note.string == stringName)
+	$FretValue.text = fret
 	
 	#print("Checking note ", stringName, " and found notes: ", notesOfString.size())
 	
