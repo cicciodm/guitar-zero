@@ -12,14 +12,14 @@ speed = 350
 spawn = false
 
 [node name="Player" parent="." instance=ExtResource("3_s131w")]
-position = Vector2(1388, 653)
+position = Vector2(1384, 653)
 metadata/_edit_group_ = true
 
 [node name="E_Spawn" type="Node2D" parent="."]
-position = Vector2(771, -64)
+position = Vector2(768, -64)
 
 [node name="A_Spawn" type="Node2D" parent="."]
-position = Vector2(899, -64)
+position = Vector2(896, -64)
 
 [node name="D_Spawn" type="Node2D" parent="."]
 position = Vector2(1024, -64)
@@ -28,10 +28,10 @@ position = Vector2(1024, -64)
 position = Vector2(1152, -64)
 
 [node name="B_Spawn" type="Node2D" parent="."]
-position = Vector2(1283, -64)
+position = Vector2(1280, -64)
 
 [node name="HIGH_E_Spawn" type="Node2D" parent="."]
-position = Vector2(1411, -64)
+position = Vector2(1408, -64)
 
 [node name="Note_Spawn_Timer" type="Timer" parent="."]
 wait_time = 3.0
